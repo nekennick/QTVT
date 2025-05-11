@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 # Đọc file Excel
-file_path = 'EVN_INV_009A___Bảng_liệt_k_070525-T3.xlsx'
+file_path = 'EVN_INV_009A___Bảng_liệt_k_070525-T2.xlsx'
 df = pd.read_excel(file_path, sheet_name='EVN_INV_009A___Bảng_liệt_k_0705')
 
 # Định nghĩa hàm kiểm tra mã phiếu
