@@ -4,6 +4,9 @@ import os
 import glob
 from datetime import datetime
 
+# Disable SettingWithCopyWarning
+pd.options.mode.chained_assignment = None
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -83,14 +86,14 @@ def process_excel_file(file_path):
             'Số lượng'       # Số lượng
         ]]
 
-        # Áp dụng định dạng ngày và số lượng mới
-        df_ketqua['Ngày'] = df_ketqua['Ngày'].apply(format_date)
-        df_ketqua['Số lượng'] = df_ketqua['Số lượng'].apply(format_quantity)
+        df = df.copy()
+        df['Ngày'] = df['Ngày'].apply(format_date)
+        df['Số lượng'] = df['Số lượng'].apply(format_quantity)
 
         # Xuất ra file Excel mới
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         output_file = f'Ket_qua_xu_ly_{timestamp}.xlsx'
-        df_ketqua.to_excel(output_file, index=False)
+        df.to_excel(output_file, index=False)
         
         print('\n' + '=' * 50)
         print(f'ĐÃ XUẤT KẾT QUẢ THÀNH CÔNG!')
@@ -100,7 +103,7 @@ def process_excel_file(file_path):
         return True
     except Exception as e:
         print('\n' + '=' * 50)
-        print('LỖI KHI XỬ LÝ FILE!')
+        print('LƯU Ý: LÀM GỌN FILE GỐC, TRƯỚC KHI XUẤT!')
         print(f'Chi tiết lỗi: {str(e)}')
         print('=' * 50)
         return False
